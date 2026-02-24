@@ -129,7 +129,9 @@ function App() {
   function onTogglePin(id: string) {
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
-        note.id === id ? { ...note, pinned: !note.pinned, updatedAt: Date.now() } : note
+        note.id === id
+          ? { ...note, pinned: !note.pinned, updatedAt: Date.now() }
+          : note
       )
     );
   }
@@ -137,7 +139,9 @@ function App() {
   function onToggleArchive(id: string) {
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
-        note.id === id ? { ...note, archived: !note.archived, updatedAt: Date.now() } : note
+        note.id === id
+          ? { ...note, archived: !note.archived, updatedAt: Date.now() }
+          : note
       )
     );
   }
