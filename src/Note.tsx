@@ -5,8 +5,16 @@ import ReactMarkdown from "react-markdown";
 
 type NoteProps = {
   onDelete: (id: string) => void;
+  onTogglePin: (id: string) => void;
+  onToggleArchive: (id: string) => void;
+  onDuplicate: (id: string) => void;
 };
-export function Note({ onDelete }: NoteProps) {
+export function Note({
+  onDelete,
+  onTogglePin,
+  onToggleArchive,
+  onDuplicate,
+}: NoteProps) {
   const note = useNote();
   const navigate = useNavigate();
 
@@ -15,6 +23,9 @@ export function Note({ onDelete }: NoteProps) {
       <Row className="align-items-center mb-4">
         <Col>
           <h1>{note.title} </h1>
+          <small className="text-muted d-block mb-2">
+            Updated: {new Date(note.updatedAt).toLocaleString()}
+          </small>
           {note.tags.length > 0 && (
             <Stack gap={1} direction="horizontal" className="flex-wrap">
               {note.tags.map((tag) => (
@@ -30,6 +41,24 @@ export function Note({ onDelete }: NoteProps) {
             <Link to={`/${note.id}/edit`}>
               <Button variant="primary">Edit</Button>
             </Link>
+            <Button
+              onClick={() => onTogglePin(note.id)}
+              variant={note.pinned ? "warning" : "outline-warning"}
+            >
+              {note.pinned ? "Unpin" : "Pin"}
+            </Button>
+            <Button
+              onClick={() => onToggleArchive(note.id)}
+              variant="outline-secondary"
+            >
+              {note.archived ? "Restore" : "Archive"}
+            </Button>
+            <Button
+              onClick={() => onDuplicate(note.id)}
+              variant="outline-primary"
+            >
+              Duplicate
+            </Button>
             <Button
               onClick={() => {
                 onDelete(note.id);

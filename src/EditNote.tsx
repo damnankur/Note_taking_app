@@ -6,7 +6,7 @@ type EditNoteProps = {
   onSubmit: (id: string, data: NoteData) => void;
   onAddTag: (data: Tag) => void;
   availableTags: Tag[];
-} & NoteData;
+};
 
 export function EditNote({ onSubmit, onAddTag, availableTags }: EditNoteProps) {
   const note = useNote();
